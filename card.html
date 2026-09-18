@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    <link rel="stylesheet" href="">
+	<title>responsive column cards</title>
+  </head>
+  <body>
+  <style>
+  
+     #shareButton{
+     background-color:#007bff;
+	 color: white;
+	 padding: 10px 20px;
+	 border: none;
+	 border-radius: 5px;
+	 cursor: pointer;
+	 font-size: 16px;
+   }
+   #shareButton:hover{
+     background-color:#0056b3;
+   }
+  
+  
+    body{
+	    text-align: center;
+	}
+	.grid-container{
+	  display: grid;
+	  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	  grid-gap: 20px;
+	  padding: 20px;
+	  max-width: 1200px;
+	  margin: 0 auto;
+	}
+	.card{
+	  padding: 40px;
+	  border-radius: 10px;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease;
+	}
+	.card:nth-child(1){}
+	.card:nth-child(2){
+	  background-color: #3498DB;
+	}
+	.card:nth-child(3){
+	background-color: #27AE60;
+	}
+	@media screen and (max-width: 768px){
+	  .grid-container{
+	    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	  }
+	  .card{
+	    padding: 20px;
+	  }
+	}
+  
+  
+  </style>
+  
+  <div class="grid-container">
+   <div class="card"> Clicks<br>10</div>
+   <div class="card"> Invitations<br>10</div>
+   <div class="card"> Completed tasks<br>10</div>
+   <div class="card"> Total rewards<br>10</div>
+   <div class="card"> Referrals<br>10</div>
+   <div class="card"> </b>Surveys<br>10</b></div>
+  
+  </div>
+  <input type="text" name="referrallink" value="Referral link">
+  <button>Copy</button><br><br><br>
+  <button id="shareButton">Click to Share</button>
+  
+  
+  
+<script>
+
+const shareButton = document.getElementById('shareButton');
+
+if (navigator.share) {
+  shareButton.addEventListener('click', async () => {
+    try {
+      await navigator.share({
+        title: 'QS Media',
+        text: 'Enjoy Quick Solutions Services',
+        url: 'https://quicksolutionsmedia.org',
+      });
+      console.log('Content shared successfully');
+    } catch (error) {
+      console.error('Error sharing content:', error);
+    }
+  });
+} else {
+  // Fallback for browsers that do not support the Web Share API
+  shareButton.addEventListener('click', () => {
+    alert('Web Share API is not supported in this browser. You can manually copy the URL.');
+    // Optionally, you could provide a custom share dialog or copy-to-clipboard functionality here.
+  });
+}
+
+</script>
+
+  
+  
+  
+  </body>
+  </html>

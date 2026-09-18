@@ -1,0 +1,88 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+     <title>
+	 how to make a pagination using HTML and CSS AND Javascript
+	 
+	 </title>
+</head>
+
+
+
+
+<style>
+#data-container{
+    margin-bottom: 20px;
+}
+.item{
+   padding: 10px;
+   border: 1px solid #ccc;
+   margin-bottom: 5px;
+}
+#pagination{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#pagination button{
+   padding: 8px 15px;
+   margin: 0 5px;
+   cursor: pointer;
+}
+.page-link{
+   padding: 8px 12px;
+   margin: 0 2px;
+   text-decoration: none;
+   color: blue;
+   border: 1px solid #eee;
+   cursor: pointer;
+}
+.page-link.active{
+   background-color: lightblue;
+   color: white;
+}
+
+</style>
+
+
+
+
+
+
+  <body>
+      <div id="data-container">
+	      <div class="item">Item 1</div>
+		  <div class="item">Item 2</div>
+		  <div class="item">Item 3</div>
+		  <div class="item">Item 4</div>
+		  <div class="item">Item 5</div>
+		  <div class="item">Item 6</div>
+		  <div class="item">Item 7</div>
+		  <div class="item">Item 8</div>
+		  <div class="item">Item 9</div>
+		  <div class="item">Item 10</div>
+		  <div class="item">Item 11</div>
+		  <div class="item">Item 22</div>
+		  <div class="item">Item 33</div>
+		  <div class="item">Item 44</div>
+		  <div class="item">Item 55</div>
+		  <div class="item">Item 66</div>
+		  <div class="item">Item 77</div>
+		  <div class="item">Item 88</div>
+		  <div class="item">Item 99</div>
+      </div>
+	  
+	  <div id="pagination">
+	       <button id="prev-button">Previous</button>
+		   <div id="page-numbers"></div>
+		   <button id="next-button">Next</button>
+	 <div>
+	 <script src="page30.js"></script>
+  </body>
+</html>
+	 
+
+
+

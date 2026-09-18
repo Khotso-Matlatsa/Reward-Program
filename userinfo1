@@ -1,0 +1,135 @@
+<?php
+
+	include('conn.php');
+
+extract($_POST);
+if(isset($save))
+{
+	
+	$currentpassword = $_POST['currentpassword'];
+    $newpassword = $_POST['newpassword'];
+    $cpassword = $_POST['cpassword'];
+
+  if ($newpassword != $cpassword)
+    {
+    	echo "<script> alert(' New  password not matched with Confirm Password ') </script>";
+    }
+
+	elseif($newpassword=="" || $cpassword=="" || $currentpassword=="")
+	{
+	    echo "<script> alert(' fill all the fields first ') </script>";
+	}
+	else
+	{
+$sql=mysqli_query($conn,"select * from admin where currentpassword='$currentpassword'");
+$r=mysqli_num_rows($sql);
+if($r==true)
+{
+
+	if($newpassword==$cpassword)
+	{
+	
+	$sql=mysqli_query($conn,"update admin set currentpassword='$newpassword', cpassword='$newpassword' where currentpassword='$currentpassword'");
+	
+	echo "<script> alert(' Password updated ') </script>";
+	header('location:admins.php');
+	}
+	else
+	{
+	$err="<font color='red'>New  password not matched with Confirm Password </font>";
+	}
+}
+
+else
+{
+
+$err="<font color='red'>Wrong Old Password </font>";
+
+}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*include('conn.php');
+
+if(isset($_POST['submit'])){
+$currentpassword = $_POST['currentpassword'];
+$newpassword = $_POST['newpassword'];
+$cpassword = $_POST['cpassword'];
+
+mysqli_query($conn,"update `admin` set currentpassword='$newpassword', cpassword='$newpassword' where adminid='$adminid'");
+
+if ($currentpassword != $password)
+{
+	echo "<script> alert(' wrong current password ') </script>";
+}
+
+elseif ($_POST["newpassword"] === $_POST["cpassword"]) {
+   		echo "<script> alert(' correct password ') </script>";
+}
+else {
+   echo "<script> alert(' Please enter same passwords ') </script>";
+
+}
+
+
+
+?>
+<script type="text/javascript">
+      alert("password updated successfully.");
+      window.location = "admins.php";
+    </script>
+    <?php
+}
+
+*/
+
+
+
+/*
+
+$query = "INSERT INTO `passencrypt`(email,password1,password2) VALUES ('".$email."',md5('".$password1."'),md5('".$password2."'))";
+mysqli_query($conn,$query)or die ('Error in updating Database');
+
+
+if($pass != $cpass)
+                {
+                    echo "<script> alert(' Please enter same password')</script>";
+                }
+else
+{
+echo "<script> alert(' Entered password are same')</script>";
+}
+// another method
+if ($_POST["pass"] === $_POST["cpass"]) {
+   echo "<script> alert(' Entered passwords are same') </script>";
+}
+else {
+   echo "<script> alert(' Please enter same passwords ') </script>";
+}*/
+
+
+?>

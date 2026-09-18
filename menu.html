@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content=
+"width=device-width, initial-scale=1.0">
+    <title>Responsive Table</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        @media screen and (max-width: 600px) {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+            }
+
+            td {
+                border: none;
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                position: absolute;
+                left: 6px;
+                content: attr(data-label);
+                font-weight: bold;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+	
+        <thead>
+		   
+            <tr>
+                <th>Package Name</th>
+                <th>Duration</th>
+                <th>Designed by QS Media</th>
+				<th>Designed by your company</th>
+                <th>Advertised on:</th>
+                <th>Advertised on social medias too</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="Package Name">Basic Package</td>
+                <td data-label="Duration">1 day</td>
+                <td data-label="Designer: QS Media">$10</td>
+                <td data-label="Designer: your team">$5</td>
+                <td data-label="Advertising platform">QS website only</td>
+				<td data-label="Includes social medias too">$15</td>
+            </tr>
+            <tr>
+                <td data-label="Student Name">
+                    Pro Package
+                </td>
+                <td data-label="Roll Number">102</td>
+                <td data-label="Class">10</td>
+                <td data-label="Subject">Science</td>
+                <td data-label="Marks">88</td>
+				<td data-label="Marks">78</td>
+            </tr>
+            <tr>
+                <td data-label="Student Name">
+                    Premium Package
+                </td>
+                <td data-label="Roll Number">103</td>
+                <td data-label="Class">10</td>
+                <td data-label="Subject">History</td>
+                <td data-label="Marks">92</td>
+				<td data-label="Marks">78</td>
+            </tr>
+            <tr>
+                <td data-label="Student Name">
+                    VIP Package
+                </td>
+                <td data-label="Roll Number">104</td>
+                <td data-label="Class">10</td>
+                <td data-label="Subject">Marathi</td>
+                <td data-label="Marks">78</td>
+				<td data-label="Marks">78</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

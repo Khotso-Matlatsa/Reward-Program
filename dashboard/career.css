@@ -1,0 +1,67 @@
+
+/****contact form****/
+.footer-section20 form {
+		    display: flex;
+			flex-direction: column;
+		}
+		.footer-section20 form 
+		    input[type="email"]{
+			padding: 10px;
+			margin-bottom: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: black;
+			color: #fff;
+			cursor: pointer;
+			width: 20%;
+		}
+		 input[type="text"]{
+			padding: 10px;
+			margin-bottom: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: black;
+			color: #fff;
+			cursor: pointer;
+			width: 20%;
+		}
+		input[type="number"]{
+			padding: 10px;
+			margin-bottom: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: black;
+			color: #fff;
+			cursor: pointer;
+			width: 20%;
+		}
+		input[type="datetime-local"]{
+			padding: 10px;
+			margin-bottom: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: black;
+			color: #fff;
+			cursor: pointer;
+			width: 20%;
+		}
+		.jobtype{
+			padding: 10px;
+			margin-bottom: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: black;
+			color: #fff;
+			cursor: pointer;
+			width: 21%;
+		}
+		.footer-section20 form button:hover{
+		  background-color: #777;
+		}
+		.footer-section20 form button{
+		  width: 21%;
+		}
+
+/****contact form****/
+	
+

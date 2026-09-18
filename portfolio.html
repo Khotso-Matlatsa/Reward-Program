@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Portfolio</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+}
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 40px 0;
+    text-align: center;
+}
+
+/* FILTER BUTTONS */
+.filter-buttons button {
+    padding: 8px 18px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    background: #e0e0e0;
+}
+
+.filter-buttons button.active {
+    background: #ff4d4d;
+    color: white;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+/* IMAGE BOX */
+.img-box {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+/* SLIDES */
+.slide {
+    display: none;
+    height: 100%;
+}
+
+.slide.active {
+    display: block;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* 🔥 KEY FIX */
+    background: #fff;
+}
+
+/* ARROWS */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    z-index: 2; /* IMPORTANT */
+}
+
+.prev { left: 5px; }
+.next { right: 5px; }
+
+/* OVERLAY */
+.overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    background: white;
+    color: black;
+
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.img-box:hover .overlay {
+    opacity: 1;
+}
+
+/* CONTENT */
+.card-content {
+    padding: 15px;
+    text-align: left;
+}
+
+/* LIGHTBOX */
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 85%;
+}
+
+#lightbox span {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+.img-info {
+    position: absolute;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+
+    background: rgba(0,0,0,0.5);
+    color: white;
+
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 5px;
+
+    opacity: 0;
+    transition: 0.3s;
+}
+.filter-buttons button {
+    padding: 8px 18px;
+    margin: 5px;
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+    background: #ff4d4d;
+    color: white;
+}
+.img-box {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* better for modern UI */
+}
+.overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+
+    background: rgba(255,255,255,0.85);
+    color: black;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.img-box:hover .overlay {
+    opacity: 1;
+}
+h1 {
+    color: white;
+    font-size: 32px;
+}
+
+.card-content h4 {
+    color: white;
+}
+
+.card-content p {
+    color: rgba(255,255,255,0.8);
+}
+/* Show on hover */
+.img-box:hover .img-info {
+    opacity: 1;
+}
+/* HIDE */
+.hide { display: none; }
+@media (max-width: 768px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .img-box {
+        height: 160px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .card-content {
+        padding: 12px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Our Work</h1>
+
+    <!-- FILTER -->
+<div class="filter-buttons">
+    <button class="active" onclick="filterSelection(event,'all')">All</button>
+    <button onclick="filterSelection(event,'music')">Music</button>
+    <button onclick="filterSelection(event,'poster')">Posters</button>
+    <button onclick="filterSelection(event,'website')">Web Design</button>
+    <button onclick="filterSelection(event,'job')">Job Boards</button>
+</div>
+
+    <div class="grid">
+
+        <!-- MUSIC -->
+        <div class="card music">
+            <div class="img-box">
+
+                <div class="slide active">
+                    <img src="images/msc_strm.jpeg">
+                </div>
+                <div class="slide">
+                    <img src="images/msc_strm1.jpeg">
+                </div>
+
+                <div class="slide">
+                    <img src="images/msc.jpeg">
+                </div>
+                <div class="slide">
+                    <img src="images/mus.jpeg">
+                </div>
+                <div class="slide">
+                    <img src="images/muz.jpeg">
+                </div>
+                <button class="prev" onclick="changeSlide(this,-1)">‹</button>
+                <button class="next" onclick="changeSlide(this,1)">›</button>
+
+                <div class="overlay" onclick="openLightbox(this)">View</div>
+            </div>
+
+            <div class="card-content">
+                <h4>Music Streaming</h4>
+                <p>Music Streaming Site: Feel the beat with a smooth, immersive music experience.</p>
+            </div>
+        </div>
+
+        <!-- POSTER -->
+        <div class="card poster">
+            <div class="img-box">
+
+                <div class="slide active">
+                    <img src="images/poster.jpeg">
+                </div>
+                <div class="slide">
+                    <img src="images/flyer.jpeg">
+                </div>
+
+                <div class="slide">
+                    <img src="images/pst.jpeg">
+                </div>
+                <button class="prev" onclick="changeSlide(this,-1)">‹</button>
+                <button class="next" onclick="changeSlide(this,1)">›</button>
+
+                <div class="overlay" onclick="openLightbox(this)">View</div>
+            </div>
+
+            <div class="card-content">
+                <h4>Posters</h4>
+                <p>Poster Design: Bold visuals that stop the scroll and spark attention.</p>
+            </div>
+        </div>
+<!-- WEB DESIGN -->
+<div class="card website">
+    <div class="img-box">
+
+        <div class="slide active">
+            <img src="images/web_dez.jpeg">
+            <div class="img-info">Responsive website UI design</div>
+        </div>
+
+        <div class="slide">
+            <img src="images/web.png">
+            <div class="img-info">Modern landing page layout</div>
+        </div>
+
+        <button class="prev" onclick="changeSlide(this,-1)">‹</button>
+        <button class="next" onclick="changeSlide(this,1)">›</button>
+
+        <div class="overlay" onclick="openLightbox(this)">View</div>
+    </div>
+
+    <div class="card-content">
+        <h4>Web Design</h4>
+        <p>Web Design: Designs that don’t just look good—they perform.</p>
+    </div>
+</div>
+
+<!-- JOB BOARD -->
+<div class="card job">
+    <div class="img-box">
+
+        <div class="slide active">
+            <img src="images/brd (1).png">
+            <div class="img-info">Job listing interface</div>
+        </div>
+
+        <div class="slide">
+            <img src="images/job_board.png">
+            <div class="img-info">Admin dashboard system</div>
+        </div>
+
+       <div class="slide">
+            <img src="images/brd (2).png">
+            <div class="img-info">Admin dashboard system</div>
+        </div>
+        <button class="prev" onclick="changeSlide(this,-1)">‹</button>
+        <button class="next" onclick="changeSlide(this,1)">›</button>
+
+        <div class="overlay" onclick="openLightbox(this)">View</div>
+    </div>
+
+    <div class="card-content">
+        <h4>Job Boards</h4>
+        <p>Job Board Design: Where talent meets opportunity—fast, smart, and seamless.</p>
+    </div>
+</div>
+    </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+    <span onclick="closeLightbox()">×</span>
+    <img id="lightbox-img">
+</div>
+
+<script>
+function filterSelection(event, category) {
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        card.classList.add("hide");
+        if (card.classList.contains(category) || category === "all") {
+            card.classList.remove("hide");
+        }
+    });
+
+    document.querySelectorAll(".filter-buttons button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    event.target.classList.add("active");
+}
+
+/* SLIDER FIXED */
+function changeSlide(btn, direction) {
+    let box = btn.closest(".img-box");
+    let slides = box.querySelectorAll(".slide");
+
+    let index = 0;
+    slides.forEach((s, i) => {
+        if (s.classList.contains("active")) index = i;
+    });
+
+    slides[index].classList.remove("active");
+
+    index = (index + direction + slides.length) % slides.length;
+
+    slides[index].classList.add("active");
+}
+
+/* LIGHTBOX */
+function openLightbox(el) {
+    let img = el.closest(".img-box").querySelector(".slide.active img").src;
+    document.getElementById("lightbox-img").src = img;
+    document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
